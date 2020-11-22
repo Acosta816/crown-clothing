@@ -3,6 +3,7 @@ import MenuItem from '../menu-item/menu-item.component';
 import './directory.styles.scss';
 import sectionsData from './sections-data';
 
+//just the container that renders the menuItems (hats, jackets, etc..)
 export default class Directory extends React.Component {
     constructor(props) {
         super(props);
@@ -15,8 +16,8 @@ export default class Directory extends React.Component {
         return (
             <div className="directory-menu">
                 {
-                    this.state.sections.map(({ title, id, imageUrl, size }) => (
-                        <MenuItem key={id} title={title} imageUrl={imageUrl} size={size} />
+                    this.state.sections.map(({ id, ...sectionsProps }) => (
+                        <MenuItem key={id} {...sectionsProps} />
                     ))
                 }
             </div>
@@ -25,3 +26,6 @@ export default class Directory extends React.Component {
     }
 
 }
+
+
+//NOTE: ES6 trick, use the ...spread operator to distribute the keys from sections to avoid sections.map(({ title, id, imageUrl etc..}))
