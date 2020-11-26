@@ -19,7 +19,6 @@ const Header = () => (
                 CONTACT
             </NavLink>
 
-
         </div>
 
     </div>
