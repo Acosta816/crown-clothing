@@ -12,12 +12,24 @@
     font-family: 'Open Sans Condensed';
     font-weight: bolder;
     border: none;
+    border-radius: 13px;
     cursor: pointer;
   
     &:hover {
       background-color: white;
       color: black;
       border: 1px solid black;
+    }
+
+    &.google-button {
+        background-color: rgb(39, 122, 255);
+        color: rgb(214, 219, 255);
+
+        &:hover {
+            background-color: #1c6be2;
+            color: white;
+            border: none;
+          }
     }
   }
   
