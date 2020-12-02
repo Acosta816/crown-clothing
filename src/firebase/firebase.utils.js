@@ -11,7 +11,37 @@ const config = {
     messagingSenderId: "265380521808",
     appId: "1:265380521808:web:1135a462cdc09a62e66e55",
     measurementId: "G-SVHP6QVWEL"
-}
+};
+
+//exporting an async function that takes the userAuth object returned by logging in with google. Then we make an async call to google api.
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+    if (!userAuth) return;
+    //if there is a userAuth, query firestore to see if it exists
+    //NOTE: When you query firestore, it returns 2 different tyrpes of objects from a query, a "QueryReference" and a "QuerySnapshot"
+    const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+    const snapShot = await userRef.get();//have to call .get() on the document object reference we get back in order to perform a read CRUD method on it which is .get()
+
+    //This checks if the document already exits by checking the snapshot's .exists property
+    //If it doesn't already exist, call the .set() CRUD operation on the userRef object to write a new document to the database.
+    if (!snapShot.exists) {
+        const { displayName, email } = userAuth;
+        const createdAt = new Date();
+
+        try {
+            await userRef.set({
+                displayName,
+                email,
+                createdAt,
+                ...additionalData
+            });
+        } catch (err) {
+            console.log('error creating user', err.message);
+        }
+    };//end of creating user
+
+    return userRef;
+};
 
 firebase.initializeApp(config);
 

@@ -6,7 +6,7 @@ import HomePage from './pages/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import LoginRegisterContainerPage from './pages/login-register/login-register.component';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 class App extends React.Component {
   constructor(props) {
@@ -28,14 +28,34 @@ class App extends React.Component {
   //The observer/subscriber is listening constantly to the auth object for changes. If there is no change/logout to the auth, then the onAuthStateChanged subscriber just sends back that "user" authenticated object everytime until they sig out.
   componentDidMount() {
     console.log('componentDidMount() called...');
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      console.log(user);//inspecting the "user" object returned by calling auth.onAuthStateChanged
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      console.log(userAuth);//inspecting the "userAuth" object returned by calling auth.onAuthStateChanged
       //It will not return anything if the user has manually logged out or the token expired. If however the last person logged in and did not log out. It will persist and THAT user object will be returned (they will still be logged in. Even if the page refreshes or the internet disconnects and reconnects.)
-      this.setState(prevState => {
-        return {
-          currentUser: user
-        }
-      });//setState
+
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        //Subscribing to the userRef for any future changes, this also returns the snapShot of the userRef which we can call .data() on to see the actual user doc data like email, displayName, etc...
+        userRef.onSnapshot(snapShot => {
+          console.log(snapShot.data());//have to call .data() in order to retrieve the actual document object's data like email, displayName, etc..
+
+          this.setState(prevState => {
+            return {
+              currentUser: {
+                id: snapShot.id,
+                ...snapShot.data()
+              }
+            }
+          },
+            () => console.log(this.state)//this is a 2nd argument you can pass to setState where you can invoke a console log to see the new state.
+          );//setState
+
+        }); //end of userRef.onSnapshot()
+
+      } else {
+        this.setState({ currentUser: userAuth }); //if no userAuth (meaning the userAuth came back null because they logged out) then we set the state to the null that is returned by userAuth.
+      }
+
 
     });//auth.onAuthStateChanged
   }
