@@ -1,3 +1,6 @@
+import { userActionTypeStrings } from './user.typeStrings';
+
+
 //user reducer that holds the state slice for the user part of the application
 
 /*when an action gets fired for the first time, there won't be any "previous state" 
@@ -11,7 +14,7 @@ const INITIAL_STATE = {
 const userReducer = (prevState = INITIAL_STATE, action) => {
 
     switch (action.type) {
-        case 'SET_CURRENT_USER':
+        case userActionTypeStrings.SET_CURRENT_USER:
             return {
                 ...prevState,
                 currentUser: action.payload
