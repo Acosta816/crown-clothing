@@ -3,7 +3,8 @@ import { cartActionTypeStrings } from './cart.typeStrings';
 
 
 const INITIAL_STATE = {
-    hidden: true
+    hidden: true,
+    cartItems: []
 };
 
 //every return must return a state object
@@ -14,6 +15,11 @@ const cartReducer = (prevState = INITIAL_STATE, action) => {
             return {
                 ...prevState,
                 hidden: !prevState.hidden
+            }
+        case cartActionTypeStrings.ADD_ITEM:
+            return {
+                ...prevState,
+                cartItems: [...prevState.cartItems, action.payload]
             }
         default:
             return prevState;
