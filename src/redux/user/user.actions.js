@@ -1,5 +1,4 @@
-
-const SET_CURRENT_USER = 'SET_CURRENT_USER';
+import { userActionTypeStrings } from './user.typeStrings';
 
 //make an action that will trigger the case 'SET_CURRENT_USER' in the switch statement inside the userReducer function.
 //To do this we will create a factory function that pumps out actions with type: 'SET_CURRENT_USER' and payload: of whatever user
@@ -9,7 +8,7 @@ const SET_CURRENT_USER = 'SET_CURRENT_USER';
 //to the userReducer which will match it to the 'SET_CURRENT_USER' case and change the 'currentUser' to this action's action.payload
 export const setCurrentUser = user => (
     {
-        type: SET_CURRENT_USER,
+        type: userActionTypeStrings.SET_CURRENT_USER,
         payload: user
     }
 );
