@@ -11,7 +11,7 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 //Redux related imports
 import { connect } from 'react-redux';
-import { setCurrentUser } from './redux/user/user.actions'; //import the action Creator
+import { setCurrentUser } from './redux/user/user.actions'; //import the action Creator to pass into the mapDispatchToProps
 
 class App extends React.Component {
 
