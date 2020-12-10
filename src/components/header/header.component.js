@@ -1,5 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { selectCartHidden } from '../../redux/cart/cart.selectors';
+
 import { Link, NavLink } from 'react-router-dom';
 
 import { auth } from '../../firebase/firebase.utils';
@@ -41,9 +45,9 @@ const Header = ({ currentUser, hiddenState }) => (
 
 //return an object where the key/value pairs will be the props that will be injected into Header.
 //The props being injected will be pulled from the app state (the root reducer and then in this case the rootReducer.user since we want the userReducer)
-const mapStateToProps = (state) => ({
-    currentUser: state.user.currentUser, //injecting master state root reducer's user.currentUser state 
-    hiddenState: state.cart.hidden
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser, //injecting master state root reducer's user.currentUser state 
+    hiddenState: selectCartHidden
 });
 
 //connect allows us to connect to the redux state and just use the word "state" to access the master state root reducer and map the state to props in Header

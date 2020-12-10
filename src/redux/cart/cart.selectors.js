@@ -10,10 +10,22 @@ export const selectCartItems = createSelector(
     (cart) => cart.cartItems
 );
 
+export const selectCartHidden = createSelector(
+    [selectCart],
+    cart => cart.hidden
+);
+
 //creating a memoized selector that returns the sum of the cartItems's quantity properties added up with the help of reduce()
 export const selectCartItemsCount = createSelector(
     [selectCartItems],
     cartItems =>
         cartItems.reduce((a, item) => a + item.quantity, 0)
+);
+
+
+export const selectCartItemsPriceTotal = createSelector(
+    [selectCartItems],
+    cartItems =>
+        cartItems.reduce((a, item) => a + (item.quantity * item.price), 0)
 );
 
