@@ -23,8 +23,22 @@
     }
   
     .quantity {
-      padding-left: 20px;
-    }
+      display: flex;
+
+      .arrow {
+        cursor: pointer;
+
+        &.grey {
+          color: rgba(128, 128, 128, 0.561);
+          cursor: not-allowed;
+        }
+      }
+
+      .value {
+        margin: 0 10px;
+      }
+
+    }//end of .quantity
   
     .remove-button {
       padding-left: 12px;

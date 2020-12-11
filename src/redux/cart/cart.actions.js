@@ -11,3 +11,13 @@ export const addItemToCart = cartItem => ({
     type: cartActionTypeStrings.ADD_ITEM,
     payload: cartItem
 });
+
+export const decrementItemQuantity = cartItem => ({
+    type: cartActionTypeStrings.DECREMENT_ITEM_QUANTITY,
+    payload: cartItem
+})
+
+export const clearItemFromCart = cartItemId => ({
+    type: cartActionTypeStrings.CLEAR_ITEM,
+    payload: cartItemId
+});

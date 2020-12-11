@@ -1,6 +1,7 @@
 //we import applyMiddleware to use the redux-logger to basically just log the actions that get dispatched and processed thru the reducers which are junctioned at the root-reducer.
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';// handy for debugging redux
+import { persistStore } from 'redux-persist'; //allows our browser to cache our store depending on certain configuration options
 
 import rootReducer from './root-reducer';
 
@@ -12,4 +13,6 @@ const middleware = [logger];
 //Here we are simply spreading the inner elements of our "middlewares" array.
 const store = createStore(rootReducer, applyMiddleware(...middleware));
 
-export default store;
+const persistor = persistStore(store);
+
+export { store, persistor };

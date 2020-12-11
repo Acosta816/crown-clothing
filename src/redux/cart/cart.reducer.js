@@ -1,5 +1,5 @@
 import { cartActionTypeStrings } from './cart.typeStrings';
-import { addItemToCart } from './cart.utils';
+import { addItemToCart, clearItemFromCart, decrementItemQuantity } from './cart.utils';
 
 
 const INITIAL_STATE = {
@@ -20,6 +20,16 @@ const cartReducer = (prevState = INITIAL_STATE, action) => {
             return {
                 ...prevState,
                 cartItems: addItemToCart(prevState.cartItems, action.payload)
+            }
+        case cartActionTypeStrings.DECREMENT_ITEM_QUANTITY:
+            return {
+                ...prevState,
+                cartItems: decrementItemQuantity(prevState.cartItems, action.payload)
+            }
+        case cartActionTypeStrings.CLEAR_ITEM:
+            return {
+                ...prevState,
+                cartItems: clearItemFromCart(prevState.cartItems, action.payload)
             }
         default:
             return prevState;
