@@ -5,6 +5,8 @@ import storage from 'redux-persist/lib/storage';
 
 import cartReducer from './cart/cart.reducer';
 import userReducer from './user/user.reducer';
+import directoryReducer from './directory/directory.reducer';
+import shopReducer from './shop/shop.reducer';
 
 //define your redux-persist config object.
 const reduxPersistConfig = {
@@ -17,7 +19,9 @@ const reduxPersistConfig = {
 //This is our global state! imagine a global this.state = {user: userReducer, cart: cartReducer, etc...}
 const rootReducer = combineReducers({
     user: userReducer, //userReducer returns either null or an object with our current user example: {displayName:'David', email: 'david@gmail.com, id: '12fwrtdsf345'}
-    cart: cartReducer
+    cart: cartReducer,
+    directory: directoryReducer,
+    shop: shopReducer
 });
 
 //export the enhanced version of your root reducer with persist capabilities.

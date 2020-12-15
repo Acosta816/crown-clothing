@@ -1,30 +1,16 @@
 import React from 'react';
-import CollectionPreview from '../../components/collection-preview/collection-preview.component';
-import collections from './collections-data';
+import { Route } from 'react-router-dom';
 
-//state holds the array of collection objects
-class ShopPage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            collections: collections
-        }
-    }
+import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
+import CollectionPage from '../collectionPage/collection-page.component';
 
-
-
-    render() {
-        return (
-            <div className='shop-page'>
-                {
-                    this.state.collections.map(({ id, ...otherCollectionProps }) => (
-                        <CollectionPreview key={id} {...otherCollectionProps} />
-                    ))
-                }
-            </div>
-        )
-    }
-
-}
+//we actually don't need to use match since it's just '/shop'. we could just route to path='/shop/:collectionRouteName' 
+const ShopPage = ({ match }) => (
+    <div className='shop-page'>
+        {console.log(match)}
+        <Route exact path='/shop' component={CollectionsOverview} />
+        <Route path={`${match.path}:collectionRouteName`} component={CollectionPage} />
+    </div>
+);
 
 export default ShopPage;

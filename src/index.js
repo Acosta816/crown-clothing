@@ -4,8 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
-import { store, persistor } from './redux/store';//pass to provider so provider can pass to any component down the tree.
-import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './redux/store';//pass store to provider so provider can pass to any component down the tree. //pass persistor to persistGate. persistor is the persisted version of our state.
+import { PersistGate } from 'redux-persist/integration/react';//redux-persist
 
 ReactDOM.render(
   <Provider store={store}>
