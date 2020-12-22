@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import CollectionItem from '../collection-item/collection-item.component';
 import './collection-preview.styles.scss';
 
@@ -11,6 +12,7 @@ const CollectionPreview = ({ title, items }) => (
                     return <CollectionItem key={item.id} item={item} />
                 })}
         </div>
+        <NavLink className='see-all' to={`/shop/${title.toLowerCase()}`}>See all {title} >></NavLink>
     </div>
 );
 
